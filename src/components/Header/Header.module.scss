@@ -1,0 +1,21 @@
+@import "./../../index.scss";
+.header{
+    padding: 45px 0;
+    h1{
+        color:$purple;
+
+    }
+   .counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:$grey;
+ }
+}
+@media(max-width:md){
+    .header{
+        h1{
+        text-align: center;
+        }
+    }
+}
