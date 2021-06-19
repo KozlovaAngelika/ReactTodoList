@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Form, Input } from 'react-bootstrap';
+import { Col, Row, Form } from 'react-bootstrap';
 import style from "./SearchPanel.module.scss"
 const SearchPanel = () => {
     return <Row>
