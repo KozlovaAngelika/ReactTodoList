@@ -29,24 +29,22 @@ const App = () => {
             return newData;
         })
     }
+    const updateToggleProperty = (arr, id, propertyForUpdate) => {
+        const inx = arr.findIndex((item) => item.id === id);
+        const newItem = todoData[inx];
+        newItem[propertyForUpdate] = !newItem[propertyForUpdate];
+        const newData = arr.slice();
+        newData[inx] = newItem;
+        return newData;
+    }
     const onToggleDone = (id) => {
         setTododata((todoData) => {
-            const inx = todoData.findIndex((item) => item.id === id);
-            const newItem = todoData[inx];
-            newItem.isDone = !newItem.isDone;
-            const newData = todoData.slice();
-            newData[inx] = newItem;
-            return newData;
+            return updateToggleProperty(todoData, id, 'isDone');
         })
     }
     const onToggleImportant = (id) => {
         setTododata((todoData) => {
-            const inx = todoData.findIndex((item) => item.id === id);
-            const newItem = todoData[inx];
-            newItem.isImportant = !newItem.isImportant;
-            const newData = todoData.slice();
-            newData[inx] = newItem;
-            return newData;
+            return updateToggleProperty(todoData, id, 'isImportant');
         })
     }
     return (

@@ -5,26 +5,29 @@ const CreateListItem = ({ addItem }) => {
     const [message, setMessage] = useState();
     const input = React.createRef();
     const changeTextHandle = (event) => {
-        setMessage(event.target.value);
+        setMessage(event.target.value.toUpperCase());
     }
     const addItemHandler = () => {
         addItem(message);
-        input.current.value = '';
         setMessage('');
     }
     return (
-        < Form >
+        < Form onSubmit={(e) => {
+            e.preventDefault();
+            addItemHandler()
+        }
+        }>
             <Row>
                 <Col>
                     <Form.Control
                         className="mb-2"
                         id="inlineFormInput"
-                        ref={input}
+                        value={message}
                         onChange={changeTextHandle}
                     />
                 </Col>
                 <Col xs="auto">
-                    <Button type="button" className="xs-2" onClick={() => { addItemHandler() }}>
+                    <Button type="submit" className="xs-2" >
                         Add
                     </Button>
                 </Col>
