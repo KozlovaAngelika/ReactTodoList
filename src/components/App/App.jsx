@@ -16,21 +16,44 @@ const App = () => {
             return todoData = newData;
         })
     }
+    const doneCount = todoData.filter((item) => item.isDone === true).length;
+    const todoCount = todoData.length - doneCount;
     const addItem = (message) => {
         setTododata((todoData) => {
             const newData = todoData.concat([{
                 value: message,
-                important: false,
-                id: id++
+                id: id++,
+                isDone: false,
+                isImportant: false
             }]);
+            return newData;
+        })
+    }
+    const onToggleDone = (id) => {
+        setTododata((todoData) => {
+            const inx = todoData.findIndex((item) => item.id === id);
+            const newItem = todoData[inx];
+            newItem.isDone = !newItem.isDone;
+            const newData = todoData.slice();
+            newData[inx] = newItem;
+            return newData;
+        })
+    }
+    const onToggleImportant = (id) => {
+        setTododata((todoData) => {
+            const inx = todoData.findIndex((item) => item.id === id);
+            const newItem = todoData[inx];
+            newItem.isImportant = !newItem.isImportant;
+            const newData = todoData.slice();
+            newData[inx] = newItem;
             return newData;
         })
     }
     return (
         <Container className="app">
-            <Header />
+            <Header doneCount={doneCount} todoCount={todoCount} />
             <SearchPanel />
-            <TodoList todoData={todoData} onDeleted={deleteItem} />
+            <TodoList todoData={todoData} onDeleted={deleteItem} onToggleDone={onToggleDone} onToggleImportant={onToggleImportant} />
             <CreateListItem addItem={addItem} />
         </Container>
     )

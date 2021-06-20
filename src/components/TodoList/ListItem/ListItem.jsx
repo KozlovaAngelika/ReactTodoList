@@ -5,23 +5,11 @@ import ItemTextContent from "./ItemTextContent/ItemTextContent";
 import style from "./ListItem.module.scss"
 import { useState } from "react";
 
-const ListItem = ({ value, onDeleted }) => {
-    const [isDone, setIsDone] = useState(false);
-    const [isImportant, setIsImportant] = useState(false);
-    const isDoneHandler = (event) => {
-        setIsDone((isDone) => {
-            return isDone = !isDone;
-        });
-    }
-    const isImportantHandler = () => {
-        setIsImportant((isImportant) => {
-            return isImportant = !isImportant;
-        })
-    }
+const ListItem = ({ value, isImportant, isDone, onDeleted, onToggleImportant, onToggleDone }) => {
     return (
         <Row className={style.ListItem}>
-            <ItemTextContent value={value} isDoneHandler={isDoneHandler} isDone={isDone} isImportant={isImportant}></ItemTextContent>
-            <ItemButtons isImportantHandler={isImportantHandler} onDeleted={onDeleted} />
+            <ItemTextContent value={value} onToggleDone={onToggleDone} isImportant={isImportant} isDone={isDone}></ItemTextContent>
+            <ItemButtons onToggleImportant={onToggleImportant} onDeleted={onDeleted} />
         </Row>
     )
 }

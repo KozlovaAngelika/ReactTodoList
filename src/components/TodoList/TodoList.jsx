@@ -5,7 +5,7 @@ import { Col, Row } from 'react-bootstrap';
 const TodoList = (props) => {
     const ListElements = props.todoData.map((item) => {
         const { id, ...itemProps } = item;
-        return <li key={item.id}><ListItem {...itemProps} onDeleted={() => { props.onDeleted(id) }}></ListItem></li>
+        return <li key={item.id}><ListItem {...itemProps} onDeleted={() => { props.onDeleted(id) }} onToggleImportant={() => { props.onToggleImportant(id) }} onToggleDone={() => { props.onToggleDone(id) }}></ListItem></li>
     })
     return (
         <Row className={style.listElements}>
