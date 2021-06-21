@@ -7,8 +7,19 @@ import { useState } from "react";
 import CreateListItem from "./../CreateListItem/CreateListItem"
 let id = 1;
 const App = () => {
-    const initialState = [];
+    const initialState = [{
+        value: 'Drink coffee',
+        id: 7859555,
+        isDone: false,
+        isImportant: false
+    }, {
+        value: 'Cook dinner',
+        id: 7859888885,
+        isDone: false,
+        isImportant: false
+    }];
     const [todoData, setTododata] = useState(initialState);
+    const [searchPhrase, setSearchPhrase] = useState('');
     const deleteItem = (id) => {
         setTododata((todoData) => {
             const itemForDelete = todoData.findIndex(item => item.id === id);
@@ -47,11 +58,18 @@ const App = () => {
             return updateToggleProperty(todoData, id, 'isImportant');
         })
     }
+    const searchItems = (items, phraseForSearch) => {
+        return items.filter((item) => item.value.toLowerCase().indexOf(phraseForSearch) > -1);
+    }
+    const visibleData = searchItems(todoData, searchPhrase);
+    const onSearchChange = (searchPhrase) => {
+        setSearchPhrase(searchPhrase);
+    }
     return (
         <Container className="app">
             <Header doneCount={doneCount} todoCount={todoCount} />
-            <SearchPanel />
-            <TodoList todoData={todoData} onDeleted={deleteItem} onToggleDone={onToggleDone} onToggleImportant={onToggleImportant} />
+            <SearchPanel searchPhrase={searchPhrase} onSearchChange={onSearchChange} />
+            <TodoList todoData={visibleData} onDeleted={deleteItem} onToggleDone={onToggleDone} onToggleImportant={onToggleImportant} />
             <CreateListItem addItem={addItem} />
         </Container>
     )
