@@ -1,10 +1,10 @@
 import React from "react";
 import Header from "./../Header/Header";
-import SearchPanel from "./../SearchPanel/SearchPanel";
 import TodoList from "./../TodoList/TodoList";
 import { Container } from "react-bootstrap";
 import { useState } from "react";
-import CreateListItem from "./../CreateListItem/CreateListItem"
+import CreateListItem from "./../CreateListItem/CreateListItem";
+import ControlPanel from "./../ControlPanel/ControlPanel";
 let id = 1;
 const App = () => {
     const initialState = [{
@@ -20,7 +20,7 @@ const App = () => {
     }];
     const [todoData, setTododata] = useState(initialState);
     const [searchPhrase, setSearchPhrase] = useState('');
-    const [filterState, setFilterState] = useState('active')// all, active, done
+    const [filterState, setFilterState] = useState('all')// all, active, done
     const deleteItem = (id) => {
         setTododata((todoData) => {
             const itemForDelete = todoData.findIndex(item => item.id === id);
@@ -82,7 +82,7 @@ const App = () => {
     return (
         <Container className="app">
             <Header doneCount={doneCount} todoCount={todoCount} />
-            <SearchPanel searchPhrase={searchPhrase} onSearchChange={onSearchChange} />
+            <ControlPanel searchPhrase={searchPhrase} onSearchChange={onSearchChange}></ControlPanel>
             <TodoList todoData={visibleData} onDeleted={deleteItem} onToggleDone={onToggleDone} onToggleImportant={onToggleImportant} />
             <CreateListItem addItem={addItem} />
         </Container>
