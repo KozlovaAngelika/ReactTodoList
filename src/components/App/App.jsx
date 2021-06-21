@@ -20,7 +20,7 @@ const App = () => {
     }];
     const [todoData, setTododata] = useState(initialState);
     const [searchPhrase, setSearchPhrase] = useState('');
-    const [filterState, setFilterState] = useState('all')// all, active, done
+    const [filterStatus, setFilterStatus] = useState('all')// all, active, done
     const deleteItem = (id) => {
         setTododata((todoData) => {
             const itemForDelete = todoData.findIndex(item => item.id === id);
@@ -33,7 +33,7 @@ const App = () => {
     const addItem = (message) => {
         setTododata((todoData) => {
             const newData = todoData.concat([{
-                value: message,
+                value: message ? message : '',
                 id: id++,
                 isDone: false,
                 isImportant: false
@@ -75,14 +75,14 @@ const App = () => {
         }
     }
 
-    const visibleData = filterItems(searchItems(todoData, searchPhrase), filterState);
+    const visibleData = filterItems(searchItems(todoData, searchPhrase), filterStatus);
     const onSearchChange = (searchPhrase) => {
         setSearchPhrase(searchPhrase);
     }
     return (
         <Container className="app">
             <Header doneCount={doneCount} todoCount={todoCount} />
-            <ControlPanel searchPhrase={searchPhrase} onSearchChange={onSearchChange}></ControlPanel>
+            <ControlPanel searchPhrase={searchPhrase} onSearchChange={onSearchChange} filterStatus={filterStatus} setFilterStatus={setFilterStatus}></ControlPanel>
             <TodoList todoData={visibleData} onDeleted={deleteItem} onToggleDone={onToggleDone} onToggleImportant={onToggleImportant} />
             <CreateListItem addItem={addItem} />
         </Container>
