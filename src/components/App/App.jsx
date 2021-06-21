@@ -20,6 +20,7 @@ const App = () => {
     }];
     const [todoData, setTododata] = useState(initialState);
     const [searchPhrase, setSearchPhrase] = useState('');
+    const [filterState, setFilterState] = useState('active')// all, active, done
     const deleteItem = (id) => {
         setTododata((todoData) => {
             const itemForDelete = todoData.findIndex(item => item.id === id);
@@ -61,7 +62,20 @@ const App = () => {
     const searchItems = (items, phraseForSearch) => {
         return items.filter((item) => item.value.toLowerCase().indexOf(phraseForSearch.toLowerCase()) > -1);
     }
-    const visibleData = searchItems(todoData, searchPhrase);
+    const filterItems = (items, filterState) => {
+        switch (filterState) {
+            case 'all':
+                return items;
+
+            case 'active':
+                return items.filter((item) => !item.isDone);
+            case 'done':
+                return items.filter((item) => item.isDone);
+            default: return items;
+        }
+    }
+
+    const visibleData = filterItems(searchItems(todoData, searchPhrase), filterState);
     const onSearchChange = (searchPhrase) => {
         setSearchPhrase(searchPhrase);
     }
