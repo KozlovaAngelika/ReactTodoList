@@ -59,7 +59,7 @@ const App = () => {
         })
     }
     const searchItems = (items, phraseForSearch) => {
-        return items.filter((item) => item.value.toLowerCase().indexOf(phraseForSearch) > -1);
+        return items.filter((item) => item.value.toLowerCase().indexOf(phraseForSearch.toLowerCase()) > -1);
     }
     const visibleData = searchItems(todoData, searchPhrase);
     const onSearchChange = (searchPhrase) => {

@@ -6,7 +6,7 @@ const SearchPanel = ({ searchPhrase, onSearchChange }) => {
         <Col xs={4} offset={8}>
             <Form className={style.form}>
                 <Form.Control type="text" placeholder="search" value={searchPhrase} onChange={(e) => {
-                    onSearchChange(e.target.value.toLowerCase());
+                    onSearchChange(e.target.value);
                 }} />
             </Form>
         </Col>
